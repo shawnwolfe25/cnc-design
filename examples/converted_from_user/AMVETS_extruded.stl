@@ -1,0 +1,46 @@
+solid AMVETS_plate
+  facet normal 0 0 -1
+    outer loop
+      vertex 0 0 0
+      vertex 8 0 0
+      vertex 8 8 0
+    endloop
+  endfacet
+  facet normal 0 0 -1
+    outer loop
+      vertex 0 0 0
+      vertex 8 8 0
+      vertex 0 8 0
+    endloop
+  endfacet
+  // top raised disk (center emblem) approximated
+  facet normal 0 0 1
+    outer loop
+      vertex 4 4 0.25
+      vertex 3 4 0
+      vertex 5 4 0
+    endloop
+  endfacet
+  facet normal 0 0 1
+    outer loop
+      vertex 4 4 0.25
+      vertex 5 4 0
+      vertex 5 5 0
+    endloop
+  endfacet
+  // simple raised text block (approximate)
+  facet normal 0 0 1
+    outer loop
+      vertex 2 3 0.1
+      vertex 6 3 0.1
+      vertex 6 3 0
+    endloop
+  endfacet
+  facet normal 0 0 1
+    outer loop
+      vertex 2 3 0.1
+      vertex 6 3 0
+      vertex 2 3 0
+    endloop
+  endfacet
+endsolid AMVETS_plate

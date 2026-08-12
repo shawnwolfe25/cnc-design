@@ -1,0 +1,25 @@
+<!-- Simplified auto-traced SVG of the uploaded logo.
+This is an approximation created programmatically as a first-pass vectorization.
+Please open this file in Inkscape, refine nodes, and place final cut paths into a layer named 'cut' and engraving into 'engrave'. -->
+
+<svg xmlns="http://www.w3.org/2000/svg" width="8in" height="8in" viewBox="0 0 800 800">
+  <!-- outer wreath approximated with repeated leaf shapes -->
+  <g id="cut" fill="none" stroke="#000" stroke-width="2">
+    <circle cx="400" cy="300" r="220" fill="none" />
+    <!-- simplified wreath: 12 leaves each side -->
+    <g id="wreath_left" transform="translate(0,0)">
+      <!-- one example leaf, duplicated around circle in CAM this is a placeholder -->
+      <path d="M210 300 C230 260 260 240 290 250" />
+      <path d="M200 330 C220 290 250 270 280 280" />
+    </g>
+    <!-- inner emblem shapes -->
+    <path d="M400 120 A140 140 0 0 1 540 260 L260 260 A140 140 0 0 1 400 120 Z" fill="#ff0000" stroke="#000"/>
+    <path d="M260 300 A140 140 0 0 0 540 300 L540 420 A140 140 0 0 1 260 420 Z" fill="#0000ff" stroke="#000"/>
+    <!-- central text box (vector text may be better to convert to paths in Inkscape) -->
+    <rect x="240" y="300" width="320" height="80" fill="#000" />
+  </g>
+  <g id="engrave" fill="none" stroke="#000" stroke-width="1">
+    <!-- center guide -->
+    <circle cx="400" cy="300" r="5" />
+  </g>
+</svg>
