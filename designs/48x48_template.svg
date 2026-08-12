@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 48"x48" template (units: inches). Use as sheet template or alignment guide.
+     Layers/groups:
+     - sheet: sheet outline
+     - origin: origin marker (lower-left)
+     - safe_margin: recommended clamp/safety margin -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48in" height="48in" viewBox="0 0 48 48" version="1.1">
+  <g id="sheet">
+    <rect x="0" y="0" width="48" height="48" fill="none" stroke="#000" stroke-width="0.02"/>
+  </g>
+  <g id="origin">
+    <!-- Lower-left origin marker (0,0) -->
+    <line x1="0" y1="0" x2="1" y2="0" stroke="#f00" stroke-width="0.05"/>
+    <line x1="0" y1="0" x2="0" y2="1" stroke="#f00" stroke-width="0.05"/>
+    <circle cx="0.25" cy="0.25" r="0.08" fill="#f00"/>
+  </g>
+  <g id="safe_margin">
+    <!-- 0.5" safe margin -->
+    <rect x="0.5" y="0.5" width="47" height="47" fill="none" stroke="#999" stroke-width="0.02" stroke-dasharray="0.2 0.2"/>
+  </g>
+  <!-- Add your parts inside the template; keep cut paths in a group named 'cut' and engraving in 'engrave' -->
+</svg>

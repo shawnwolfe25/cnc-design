@@ -1,0 +1,19 @@
+# macOS / common ignores
+.DS_Store
+Thumbs.db
+
+# node
+node_modules/
+
+# temp files
+*.tmp
+*.swp
+*.swo
+
+# FreeCAD temp
+*.FCStd.autosave
+
+# archives
+*.zip
+*.tar.gz
+*.rar

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Example 2D plate (in inches). Groups: 'cut' (outline) and 'engrave' (center mark). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="12in" height="6in" viewBox="0 0 12 6" version="1.1">
+  <g id="cut" stroke="#000" stroke-width="0.02" fill="none">
+    <rect x="0.5" y="0.5" width="11" height="5" />
+    <!-- 4 mounting holes -->
+    <circle cx="1" cy="1" r="0.125"/>
+    <circle cx="11" cy="1" r="0.125"/>
+    <circle cx="1" cy="5" r="0.125"/>
+    <circle cx="11" cy="5" r="0.125"/>
+  </g>
+  <g id="engrave" stroke="#000" stroke-width="0.01" fill="none">
+    <!-- center cross for alignment -->
+    <line x1="6" y1="2.75" x2="6" y2="3.25"/>
+    <line x1="5.75" y1="3" x2="6.25" y2="3"/>
+  </g>
+</svg>
