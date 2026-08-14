@@ -1,47 +1,200 @@
-# CNC Designs — Shapeoko / SVG Starter
+# CNC Design — Shapeoko Workflow
 
-This repository is a starter kit for Shapeoko-style CNC work focused on 2D wood projects (SVG-first) and a simple path to create 3D reliefs. It contains templates, example files, conversion tools, and guides so you can take an image, turn it into a CNC-ready SVG, extrude it to 3D, and generate toolpaths.
+A collection of templates, guides, and tools for converting images and designs into G-code for your **Shapeoko** CNC machine. Start with an image or sketch, trace it to vectors, optionally extrude to 3D, and generate toolpaths.
 
-Quick facts
-- Target machine: Shapeoko (GRBL / Carbide Motion workflows)
-- Work area: 48" × 48" (4' × 4")
-- Max material thickness: ~3" (your sled supports up to 3")
-- Primary file format: SVG (layered for cut vs engrave)
-- 3D files: FreeCAD (.FCStd) and STL exported from FreeCAD
+## 🚀 Quick start
 
-Repository layout (important folders)
-- designs/ — sheet templates and simple example SVGs (48x48 template, parts_plate.svg)
-- cams/ — CAM notes and conservative starting feeds & speeds for wood
-- docs/ — step-by-step guides (3D workflow, image→SVG→3D guide)
-- examples/ — example inputs and auto/manual converted outputs
-  - examples/converted_from_user/ — files created from the images you supplied
-  - examples/generated_svg/ and examples/generated_stl/ — automated examples
-- examples/converted_from_user/AMVETS_original.png — original image you uploaded
-- tools/ — helper scripts and FreeCAD macro to automate tracing and extruding
-- templates/ — stock/sheet templates in inches
+**I have an image or logo** → [Go to Section A: Make a 2D SVG](#a-make-a-2d-svg-best-for-logos-simple-shapes-or-outlines)
 
-Recent updates (auto-maintained)
-- 2026-08-12: Added starter files and 3D workflow docs.
-- 2026-08-12: Added example auto-trace files and small sample SVG/STL to demonstrate pipeline.
-- 2026-08-12: Added tools: trace_with_potrace.sh, inkscape_trace.sh, freecad_extrude_macro.py, run_full_conversion.sh.
-- 2026-08-12: Added your uploaded logo and performed manual trace and FreeCAD extrusion to 0.75" (3/4"):
-  - examples/converted_from_user/AMVETS_original.png
-  - examples/converted_from_user/AMVETS_manual_trace.svg  (cut & engrave layers, text converted to paths)
-  - examples/converted_from_user/AMVETS_extruded.FCStd
-  - examples/converted_from_user/AMVETS_extruded.stl
+**I want to make a 3D relief or raised part** → [Go to 3D Workflow](/docs/3D_workflow.md)
 
-How I will keep README up to date
-- I will update this Recent updates list each time I add or modify files in the repo (commits that add examples, tools, or outputs).
-- If you or collaborators add files, please append a short note under Recent updates or open a PR and request I add the note.
-- For transparency I include the date (YYYY-MM-DD), a one-line summary, and a list of new/changed files.
+**I'm ready to cut and need safe settings** → [Go to Best Practices](/docs/best-practices.md)
 
-How to contribute or request changes
-- Want me to add files or run conversions? Reply in this chat with what you want (example: "manual trace and G-code for part X"). I will commit the files and add an entry to Recent updates.
-- To make local changes: clone the repo, edit files, and push — then either open a PR or tell me and I'll add the change-note to Recent updates.
+---
 
-Quick start (three steps to go from image → CNC)
-1. Place your image in examples/picture_input/ or examples/converted_from_user/ (we already added your image).
-2. Run the trace script (tools/trace_with_potrace.sh) or use Inkscape to trace the bitmap. Clean up paths and place cut outlines in a layer called `cut` and engraving/lines in `engrave`.
-3. Import the cleaned SVG into FreeCAD (or your CAM), extrude as needed, export an STL, and generate G-code in your CAM. Always do an air-cut first.
+## What's inside
 
-Contact me here in the repo chat whenever you want a conversion or a G-code file generated and I will update this README with the change and commit the outputs.
+| Folder | Purpose |
+|--------|---------|
+| **`/templates`** | Ready-to-use SVG templates (inches) |
+| **`/designs`** | Design examples and test files |
+| **`/docs`** | Step-by-step guides (image→SVG→3D, best practices) |
+| **`/examples`** | Sample files and conversion walkthroughs |
+| **`/cams`** | Shapeoko feeds, speeds, and CAM app tips |
+| **`/tools`** | Scripts to automate conversion pipeline |
+
+---
+
+## 📖 Key documentation
+
+### For beginners
+- **[Image to SVG and 3D](/docs/image_to_svg_and_3d.md)** — Complete step-by-step for converting photos/logos to vectors or 3D reliefs
+- **[Best Practices & Checklist](/docs/best-practices.md)** — Pre-cut safety and conservative starting settings
+
+### For CAM users
+- **[3D Workflow](/docs/3D_workflow.md)** — Design in FreeCAD or Fusion 360, export G-code
+- **[CAM Notes](/cams/README.md)** — Recommended feeds, speeds, and CAM apps for Shapeoko
+
+---
+
+## A. Make a 2D SVG (best for logos, simple shapes, or outlines)
+
+### Step 1: Prepare the image
+- Use a high-contrast image (logos or black-and-white drawings work best)
+- If it's a photo, edit in GIMP to increase contrast and remove background
+
+### Step 2: Trace in Inkscape (free)
+1. Open Inkscape and set units to **inches**: File → Document Properties → Units → inches
+2. File → Import your PNG/JPG
+3. Select the image → Path → **Trace Bitmap**
+   - Black/white logo: use "Brightness cutoff" (~0.45–0.55)
+   - Silhouette: try "Edge detection" or "Multiple scans"
+4. Move traced vector aside and delete the original image
+
+### Step 3: Clean up
+- Ungroup (Object → Ungroup) and remove tiny shapes
+- Path → Simplify (Ctrl+L) to reduce complexity
+- Path → Union to merge shapes; Path → Difference to cut holes
+
+### Step 4: Organize for CAM
+- Create two layers: `cut` and `engrave` (Layers → Add Layer)
+- Put outlines to cut into `cut` layer (closed paths)
+- Put details/lines into `engrave` layer
+- Convert strokes to paths: Path → Stroke to Path
+
+### Step 5: Scale and save
+- Resize to real-world inches using the toolbar
+- Set origin (0,0) at lower-left or center as needed
+- **File → Save As → Plain SVG** (most compatible with CAM)
+
+**Next:** Import into [Carbide Create](https://carbide3d.com/carbidecreate/), Fusion 360, or FreeCAD to generate toolpaths.
+
+---
+
+## B. Make a 3D relief (carve a picture as shallow 3D shape)
+
+Two paths:
+
+### Option 1: Extrude the SVG into a 3D object
+1. Import clean SVG into FreeCAD (free)
+2. Use Part → Extrude (Pad) to give thickness
+3. Switch to Path workbench → Create Setup → Add operations → Export G-code
+
+**Full guide:** [3D Workflow](/docs/3D_workflow.md)
+
+### Option 2: Make a grayscale heightmap relief
+1. Convert photo to grayscale in GIMP (Colors → Desaturate)
+2. Import into Blender, add a Plane, subdivide heavily
+3. Add Displace modifier with grayscale image
+4. Export STL
+5. Generate toolpaths in FreeCAD or Fusion
+
+**Full guide:** [Image to SVG and 3D](/docs/image_to_svg_and_3d.md) → Section B
+
+---
+
+## 🛠️ Tools included
+
+- **`trace_with_potrace.sh`** — Batch PNG → SVG using ImageMagick + potrace
+- **`inkscape_trace.sh`** — Inkscape tracing helper
+- **`freecad_extrude_macro.py`** — FreeCAD macro: SVG → extrude → STL
+- **`run_full_conversion.sh`** — Full pipeline (trace + extrude)
+
+**Usage:** See comments in each script or run with `--help`.
+
+---
+
+## 📁 Examples
+
+### Sample files to test the workflow
+- **`examples/picture_input/sample_image_base64.txt`** — Tiny PNG (base64; decode to test)
+  ```bash
+  base64 -d examples/picture_input/sample_image_base64.txt > sample.png
+  ```
+- **`examples/generated_svg/sample_traced.svg`** — Example traced SVG
+- **`examples/generated_stl/sample_relief.stl`** — Example STL for toolpath testing
+- **`examples/3d_examples/parametric_box.scad`** — OpenSCAD parametric design
+
+### Real-world conversions
+- **`examples/converted_from_user/AMVETS_traced.svg`** — Logo → traced vector
+- **`examples/converted_from_user/AMVETS_extruded.stl`** — Logo → 3D relief STL
+
+---
+
+## ⚡ Before your first cut
+
+**Safety checklist** (from [Best Practices](/docs/best-practices.md)):
+- ✓ Verify file is loaded and units are inches
+- ✓ Confirm work zero / origin
+- ✓ **Do an air-cut first** (dry run, no spindle)
+- ✓ Clamp workpiece; use sacrificial spoilboard for through-cuts
+- ✓ Wear PPE (glasses, hearing protection)
+
+**Conservative Shapeoko settings** (wood, 1/4" bit):
+- Bit: 1/4" upcut endmill
+- Spindle: 12k–18k RPM
+- Feed: 40–80 in/min (softwood) / 30–60 in/min (hardwood)
+- Depth per pass: 0.125"–0.25"
+- Plunge: 15–25 in/min
+
+**See [CAM Notes](/cams/README.md) for full guidance.**
+
+---
+
+## 📋 Repository info
+
+**Target machine:** Shapeoko (GRBL / Carbide Motion)  
+**Work area:** 48" × 48"  
+**Max material thickness:** ~3"  
+**Primary format:** SVG (layered for cut vs engrave)  
+**3D files:** FreeCAD (.FCStd), STL  
+
+---
+
+## 🤝 Contributing
+
+Have a design, template, or workflow improvement?
+
+- **Add files locally** and push a PR with a short description
+- **Request conversions** — reply in this repo and I'll add the output and update the changelog
+
+---
+
+## 📝 Recent updates
+
+- **2026-08-12** — Added starter files, 3D workflow docs, example traces, and conversion tools
+- **2026-08-12** — Added AMVETS logo conversion (PNG → traced SVG → extruded STL)
+
+---
+
+## 📚 Quick reference
+
+| I want to... | Read this |
+|-------------|-----------|
+| Convert a photo to SVG | [Image to SVG and 3D](/docs/image_to_svg_and_3d.md) → Section A |
+| Make a 3D carving from a photo | [Image to SVG and 3D](/docs/image_to_svg_and_3d.md) → Section B |
+| Design in 3D and make G-code | [3D Workflow](/docs/3D_workflow.md) |
+| Get safe Shapeoko settings | [CAM Notes](/cams/README.md) |
+| See a pre-cut checklist | [Best Practices](/docs/best-practices.md) |
+| Use example files | [Examples](/examples/README.md) |
+
+---
+
+## 📦 Requirements
+
+- **Inkscape** (free) — image tracing and SVG editing
+- **FreeCAD** (free) — 3D modeling and CAM toolpath generation
+- **Blender** (free, optional) — for photo reliefs and sculpted shapes
+- **Your CAM app** — Carbide Create (free), Fusion 360 (free for hobbyists), or other
+
+---
+
+## 📄 License
+
+MIT — Feel free to use and modify for personal or commercial projects.
+
+---
+
+**Questions?** Open an [issue](https://github.com/shawnwolfe25/cnc-design/issues) or check the docs.
+
+Happy cutting! ✂️🪚
